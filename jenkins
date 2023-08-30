@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+    
+    environment {
+        DIRECTORY_PATH = "C:/Documents/Jenkins"
+        TESTING_ENVIRONMENT = "Parameterised Job"
+        PRODUCTION_ENVIORMENT = "Rebecca"
+    }
+    
+     stages{   
+        stage('Build') {
+            steps {
+                 echo 'Build complete'
+                 echo "feching souce code from directory path $DIRECTORY_PATH"
+            }
+         
+            }
+        }
+        
+        stage('Test') {
+            steps {
+             echo 'Test complete'
+             echo "$TESTING_ENVIRONMENT"
+             echo "Unit test"
+             echo "Intergration tests"
+            }
+        }
+         stage('Code Quality Check') {
+            steps {
+                echo 'Code Quality Check complete'
+                echo "check the quality of the code"
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                echo 'Deploymemnt complete'
+                echo "deploy the application to testing environment by $TESTING_ENVIRONMENT"
+            }
+        }
+         stage('Approval') {
+            steps {
+                echo 'Approval complete'
+                sleep 10
+            }
+        }
+         stage('Deploy to production') {
+            steps {
+                echo 'Deploymemnt to production complete'
+                echo "production made by $PRODUCTION_ENVIORMENT"
+            }
+            post {
+                    success{
+                       emailext body: 'test', 
+                       subject: 'Test', 
+                       to: 'rebeccavanderveeke@gmail.com',
+                       attachLog: true
+                    
+                }
+            
+        }
+    }
+}
