@@ -12,6 +12,7 @@ pipeline {
             steps {
                  echo 'Build complete'
                  echo "feching souce code from directory path $DIRECTORY_PATH"
+                echo "hi"
             }
          
             }
